@@ -4,27 +4,27 @@ import { useSelector } from 'react-redux'
 
 
 const counterSlice = createSlice({
-  name: 'counter',
-  initialState: {
-    value: 0,
-    input: 0
-  },
-  reducers: {
-    input(state, input) {
-        console.log('d='+input.payload)
-        state.value = input.payload
+    name: 'counter',
+    initialState: {
+        value: 0,
+        input: 0,
+        positive: false,
     },
-    incremented(state) {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decremented(state) {
-      state.value -= 1
+    reducers: {
+        positive(state) {
+            state.positive = true
+        },
+        setInput(state, action) {
+            state.value = action.payload
+        },
+        incremented(state) {
+            state.value += 1
+        },
+        decremented(state) {
+            if(!state.positive || state.value)
+                state.value -= 1
+        }
     }
-  }
 })
 
 const { actions } = counterSlice
@@ -37,17 +37,20 @@ const store = configureStore({
 //store.subscribe(() => store.getState())
 
 
-
+// обвертка
 export default {
-    $: store,
+    store,
     use() {
         return useSelector(store.getState).value
     },
+    positive() {
+        store.dispatch(actions.positive())
+    },
     changeEventHandler(e: ChangeEvent<HTMLInputElement>) {
         const v = parseInt(e.target.value)
-        if(!isNaN(v)) {
+        if(v >= 0) {
             e.target.value = v.toString()
-            store.dispatch(actions.input(v))
+            store.dispatch(actions.setInput(v))
         }
     },
     incremented() {

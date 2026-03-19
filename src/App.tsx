@@ -1,5 +1,5 @@
 //import api from './api'
-import * as comp from './components'
+import * as ui from './ui'
 
 
 /*
@@ -9,6 +9,7 @@ export default () => {
 }*/
 
 
+
 export default () => {
-    return <comp.Counter />
+    return <ui.Counter positive />
 }
