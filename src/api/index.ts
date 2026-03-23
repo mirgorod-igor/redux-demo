@@ -3,22 +3,25 @@ import { createSlice } from "@reduxjs/toolkit"
 
 type State = 'loading' | 'loaded' | 'idle' | 'failure'
 
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: {
-    $st: 'idle' as State
-  },
-  reducers: {
-    fetch: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.$st = 'loading'
-      state.$st = 'loaded'
-      state.$st = 'idle'
+const fetchSlice = createSlice({
+    name: 'fetch',
+    initialState: {
+        ST: 'idle' as State,
+        value: undefined as any
+    },
+    reducers: {
+        loading(state) {
+            state.ST = 'loading'
+        },
+        loaded(state, action) {
+            state.ST = 'loaded'
+            state.value = action.payload
+        },
+        failure(state, action) {
+            state.ST = 'failure'
+            state.value = action.payload
+        }
     }
-  }
 })
 
 

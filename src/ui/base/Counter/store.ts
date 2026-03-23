@@ -7,14 +7,13 @@ const counterSlice = createSlice({
     name: 'counter',
     initialState: {
         value: 0,
-        input: 0,
         positive: false,
     },
     reducers: {
         positive(state) {
             state.positive = true
         },
-        setInput(state, action) {
+        setValue(state, action) {
             state.value = action.payload
         },
         incremented(state) {
@@ -50,7 +49,7 @@ export default {
         const v = parseInt(e.target.value)
         if(v >= 0) {
             e.target.value = v.toString()
-            store.dispatch(actions.setInput(v))
+            store.dispatch(actions.setValue(v))
         }
     },
     incremented() {

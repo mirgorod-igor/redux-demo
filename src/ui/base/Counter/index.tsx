@@ -1,8 +1,8 @@
+import { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import $ from './store'
 
 import sty from './index.module.sass'
-import { useEffect } from 'react'
 
 type Props = {
     positive?: boolean

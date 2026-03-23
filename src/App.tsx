@@ -1,5 +1,7 @@
 //import api from './api'
-import * as ui from './ui'
+import { useEffect } from 'react'
+import * as ui from './ui/base'
+import { useGetPokemonQuery } from './services/pokemonApi'
 
 
 /*
@@ -9,7 +11,24 @@ export default () => {
 }*/
 
 
+function initEffect() {
+    
+}
+
+function Pokemons() {
+    const t = useGetPokemonQuery()
+
+    return <ul>{
+        t.data?.results?.map(it => <li><a href={it.url}>{it.name}</a></li>)
+    }</ul>
+}
 
 export default () => {
-    return <ui.Counter positive />
+    useEffect(initEffect, [])
+    return <div>
+        <ui.Counter positive />
+        <ui.Counter positive />
+        <ui.Picker options={['1','2','3']} onChange={_ => null} value={'0'} />
+        <Pokemons />
+    </div>
 }
