@@ -1,6 +1,3 @@
-import { Provider } from 'react-redux'
-
-import $ from './store'
 
 
 export default () => {
