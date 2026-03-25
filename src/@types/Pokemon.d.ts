@@ -1,22 +1,33 @@
+type Base = {
+    name: string
+    url: string
+}
+
+type Ability = {
+    is_hidden: boolean
+    ability: Base
+    slot: number
+}
+
+
+type PastStat = {
+    generation: Base
+    stats: Stat[]
+}
+
+type Stat = {
+    base_stat: number
+    effort: number
+    stat: Base
+}
+
+type Type = Base & {
+    type: Base & {
+    }
+}
+
+
 module pokemon {
-
-    type Base = {
-        name: string
-        url: string
-    }
-
-    type Ability = Base & {
-        
-    }
-
-
-
-    type Type = Base & {
-        type: Base & {
-        }
-    }
-
-    
     
     type Item = Base & {
         
@@ -26,8 +37,9 @@ module pokemon {
 
 }
 
-interface Pokemon extends Id, pokemon.Base {
+interface Pokemon extends Id, Base {
     abilities: Ability[]
+    past_stats: PastStat[]
     types: Type[]
 }
 

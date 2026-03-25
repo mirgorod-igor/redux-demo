@@ -1,7 +1,32 @@
+.grid_two_cols
+    display: grid
+    grid-template-columns: auto auto
+    column-gap: 12px
+    row-gap: 12px
+
+
 .list
     list-style: none
     > li
         > a
             text-decoration: none
             &:hover
-                 
+
+
+.card
+    @extend .grid_two_cols
+
+.abillities
+    display: grid
+    grid-template-columns: auto auto
+
+.past_stats
+    display: grid
+    grid-template-columns: auto auto
+
+
+    > .stats
+        display: grid
+        grid-template-columns: auto auto
+
+
