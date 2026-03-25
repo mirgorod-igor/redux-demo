@@ -4,46 +4,52 @@ import { useGetPokemonByNameQuery } from '../api'
 import sty from './index.module.sass'
 
 
+function A(p: Base) {
+    return <a href={p.url}>{p.name}</a>
+}
+
+
 type Props = {
     name: string
 }
+
 
 export default (p: Props) => {
     const t = useGetPokemonByNameQuery<Data<Pokemon>>(p.name)
 console.log('useGetPokemonByNameQuery', t)
     return t.status == 'fulfilled'
         ? <div className={sty.card}>
-            <span>Название</span>
+            <small>Название</small>
             <span>{t.data.name}</span>
-            <span>Возможности</span>
+            <small>Возможности</small>
             <div className={sty.card}>
-                <span>Название</span>
-                <span>Скрыто</span>
+                <small>Название</small>
+                <small>Скрыто</small>
                 {
                     t.data.abilities.map((it, i) =>
                         <Fragment key={i}>
-                            <span>{it.ability.name}</span>
+                            <A {...it.ability} />
                             <span>{it.is_hidden ? 'да' : ''}</span>
                         </Fragment>
                     )
                 }
             </div>
-            <span>Прошлая статистика</span>
+            <small>Прошлая статистика</small>
             <div className={sty.card}>
-                <span>Генерация</span>
-                <span>Статистика</span>
+                <small>Генерация</small>
+                <small>Статистика</small>
                 {
                     t.data.past_stats?.map((it, i) =>
                         <Fragment key={i}>
-                            <span>{it.generation.name}</span>
+                            <A {...it.generation} />
                             <span className={sty.card}>
-                                <span>База</span>
-                                <span>Название</span>
+                                <small>База</small>
+                                <small>Название</small>
                                 {
                                     it.stats.map((it, i) =>
                                         <Fragment key={i}>
                                             <span>{it.base_stat}</span>
-                                            <a href={it.stat.url}>{it.stat.name}</a>
+                                            <A {...it.stat} />
                                         </Fragment>
                                     )
                                 }
