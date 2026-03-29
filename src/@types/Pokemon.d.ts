@@ -37,12 +37,17 @@ module pokemon {
 
 }
 
+
+
 interface Pokemon extends Id, Base {
     abilities: Ability[]
     past_stats: PastStat[]
     types: Type[]
 }
 
+interface Generation {
+    
+}
 
 interface Data<T> {
     data: T

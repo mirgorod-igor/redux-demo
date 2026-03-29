@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router/dom"
 
 import Pokemon from './page/Pokemon'
 import PokemonByName from "./page/PokemonByName"
+import Generation from './page/Generation'
 
 import './index.css'
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: '/stat/:name',
         element: <PokemonByName />,
+    },
+    {
+        path: '/generation/:id',
+        element: <Generation />,
     },
 ])
 

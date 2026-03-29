@@ -1,15 +1,14 @@
+import { useParams } from 'react-router'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import Pokemon from '../pokemon'
+import Generation from '../generation'
 import { api } from '../api'
-import { Counter } from '../ui'
 
 
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    // ... other reducers
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
@@ -17,10 +16,9 @@ export const store = configureStore({
 
 
 export default () => {
+  const {id} = useParams()
 
     return <Provider store={store}>
-        <Pokemon />
-        <Counter />
-        <Counter />
+        <Generation id={parseInt(id!)} />
     </Provider>
 }

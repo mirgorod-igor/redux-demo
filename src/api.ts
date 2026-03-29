@@ -18,12 +18,16 @@ export const api = createApi({
         stat: build.query<Stat, number>({
             query: (id) => `stat/${id}`,
         }),
+        generation: build.query<Generation, number>({
+            query: (id) => `generation/${id}`,
+        }),
     }),
 })
 
 // Export hooks for usage in function components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetPokemonQuery,
-  useGetPokemonByNameQuery
+    useGetPokemonQuery,
+    useGetPokemonByNameQuery, 
+    useGenerationQuery
 } = api
