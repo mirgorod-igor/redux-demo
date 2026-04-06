@@ -10,12 +10,14 @@ function cn(key, selected) {
 }
 
 type Props = {
-    items: { key: keyof Pokemon, name: string}[]
+    defaultActiveTab?: string
+    items: { key: string, name: string}[]
     children(activeTab): ReactNode
 }
 
+
 export default(p: Props) => {
-    const [activeTab, setActiveTab] = useState<keyof Pokemon>('abilities')
+    const [activeTab, setActiveTab] = useState(p.defaultActiveTab)
 
     const clickHandler: MouseEventHandler<HTMLElement> = e => {
         const activeTab = e.currentTarget.dataset.key

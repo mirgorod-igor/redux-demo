@@ -20,7 +20,5 @@ export default () => {
 
     return <Provider store={store}>
         <Pokemon />
-        <Counter />
-        <Counter />
     </Provider>
 }

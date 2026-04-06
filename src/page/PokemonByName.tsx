@@ -3,8 +3,6 @@ import { Provider, useSelector } from 'react-redux'
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 import PokemonByName from '../pokemonByName'
 import { api } from '../api'
-import Tabs from '../pokemonByName/Tabs'
-
 
 
 

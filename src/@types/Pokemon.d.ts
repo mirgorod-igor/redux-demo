@@ -45,8 +45,13 @@ interface Pokemon extends Id, Base {
     types: Type[]
 }
 
-interface Generation {
-    
+interface Generation extends Id, Base {
+
+    abilities: Ability[]
+    names: {
+        language: Base
+        name: string
+    }[]
 }
 
 interface Data<T> {
