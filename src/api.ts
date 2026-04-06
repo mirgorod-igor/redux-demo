@@ -12,10 +12,10 @@ export const api = createApi({
         getPokemonByName: build.query<Pokemon, string>({
             query: (name) => `pokemon/${name}`,
         }),
-        ability: build.query<Stat, number>({
+        ability: build.query<StatItem, number>({
             query: (id) => `stat/${id}`,
         }),
-        stat: build.query<Stat, number>({
+        stat: build.query<StatItem, number>({
             query: (id) => `stat/${id}`,
         }),
         generation: build.query<Generation, number>({
@@ -28,6 +28,8 @@ export const api = createApi({
 // auto-generated based on the defined endpoints
 export const {
     useGetPokemonQuery,
-    useGetPokemonByNameQuery, 
+    useGetPokemonByNameQuery,
+    useAbilityQuery,
+    useStatQuery, 
     useGenerationQuery
 } = api

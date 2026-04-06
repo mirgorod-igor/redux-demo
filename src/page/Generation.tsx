@@ -16,7 +16,7 @@ export const store = configureStore({
 
 
 export default () => {
-  const {id} = useParams()
+    const {id} = useParams()
 
     return <Provider store={store}>
         <Generation id={parseInt(id!)} />

@@ -2,9 +2,7 @@ import ReactDOM from "react-dom/client"
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom"
 
-import Pokemon from './page/Pokemon'
-import PokemonByName from "./page/PokemonByName"
-import Generation from './page/Generation'
+import * as page from './page'
 
 import './index.css'
 
@@ -14,19 +12,19 @@ import './index.css'
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Pokemon />,
+        element: <page.Pokemon />,
     },
     {
         path: '/:name',
-        element: <PokemonByName />,
+        element: <page.PokemonByName />,
     },
     {
-        path: '/stat/:name',
-        element: <PokemonByName />,
+        path: '/stat/:id',
+        element: <page.Stat />,
     },
     {
         path: '/generation/:id',
-        element: <Generation />,
+        element: <page.Generation />,
     },
 ])
 

@@ -13,7 +13,9 @@ import ArrowLeft from '../svg/arrow-left.svg?react'
 
 const tabs: { key: keyof Pokemon, name: string}[] = [
     { key: 'abilities', name: 'Возможности' },
-    { key: 'past_stats', name: 'Прошлая статистика' }
+    { key: 'past_stats', name: 'Прошлая статистика' },
+    { key: 'stats', name: 'Статистика' },
+    { key: 'types', name: 'Типы' },
 ]
 
 const statsTabs: { key: keyof PastStat, name: string}[] = [
@@ -21,7 +23,7 @@ const statsTabs: { key: keyof PastStat, name: string}[] = [
 ]
 
 
-function A(p: Base) {
+function A(p: NameUrl) {
     return <a href={p.url}>{p.name}</a>
 }
 
@@ -31,20 +33,34 @@ type Props = {
 }
 
 
+function Content(p: { data: Pokemon }) {
+    return <div className={sty.card}>
+        <Link to='/' className={sty.goto_prev}><ArrowLeft />к списку</Link>
+        <h1>{p.data.name}</h1>
+        <div className={sty.grid_two_cols}>
+            <small>Вид</small>
+            <Link to={p.data.species.url.substring(p.data.species.url.indexOf('/pokemon-species'))}>{p.data.species.name}</Link>
+            <div className={sty.col_span_1to3}>&nbsp;</div>
+        </div>
+        <ui.Tabs items={tabs} defaultActiveTab='abilities'>{
+            activeTab => activeTab == 'abilities'
+                ? <AbilityTabContent items={p.data.abilities} />
+                : activeTab == 'past_stats'
+                    ? <PastStatsTabContent items={p.data.past_stats} />
+                    : activeTab == 'stats' 
+                        ? <StatsTabContent items={p.data.stats} />
+                        : null
+                
+        }</ui.Tabs>
+    </div>
+}
+
 export default (p: Props) => {
     const t = useGetPokemonByNameQuery<Data<Pokemon>>(p.name)
 console.log('useGetPokemonByNameQuery', t)
 
 return t.status == 'fulfilled'
-    ? <div className={sty.card}>
-        <Link to='/' className={sty.goto_prev}><ArrowLeft />к списку</Link>
-        <h1>{t.data.name}</h1>
-        <ui.Tabs items={tabs} defaultActiveTab='abilities'>{
-            activeTab => activeTab == 'abilities'
-                ? <AbilityTabContent items={t.data.abilities} />
-                : <PastStatTabContent past_stats={t.data.past_stats} />
-        }</ui.Tabs>
-    </div>
+    ? <Content data={t.data} />
     : <span className={t.status}></span>
 }
 
@@ -63,6 +79,8 @@ function AbilityTabContent(p: {
                     <A {...it.ability} />
                     <small>Скрыто</small>
                     <span>{it.is_hidden ? 'да' : ''}</span>
+                    <small>Слот</small>
+                    <span>{it.slot}</span>
                     <hr />
                 </Fragment>
             )
@@ -72,40 +90,41 @@ function AbilityTabContent(p: {
 }
 
 
-function Stats(p: { items: Stat[] }) {
+function StatsTabContent(p: { items: StatItem[] }) {
     console.log(p.items)
     return <div className={sty.stat}>
+        <hr />
         {
             p.items.map((it, i) =>
                 <Fragment key={i}>
                     <small>Название</small>
-                    <A {...it.stat} />
+                    <Link to={it.stat.url.substring(it.stat.url.indexOf('/stat'))}>{it.stat.name}</Link>
                     <small>База</small>
                     <span>{it.base_stat}</span>
                     <small>Усилие</small>
                     <span>{it.effort}</span>
+                    <hr />
                 </Fragment>
             )
         }
     </div>
 }
 
-function PastStatTabContent(p: {
-    past_stats: PastStat[]
+function PastStatsTabContent(p: {
+    items: PastStat[]
 }) {
     return <div className={sty.grid_two_cols}>
         <hr />
         {
-            p.past_stats?.map((it, i) =>
+            p.items?.map((it, i) =>
                 <Fragment key={i}>
                     <small>Генерация</small>
-                    <a href={it.generation.url.substring(it.generation.url.indexOf('/generation'))}>{it.generation.name}</a>
+                    <Link to={it.generation.url.substring(it.generation.url.indexOf('/generation'))}>{it.generation.name}</Link>
                     <ui.Tabs items={statsTabs}>{
                         activeTab => activeTab == 'stats'
-                            ? <Stats items={it.stats} />
+                            ? <StatsTabContent items={it.stats} />
                             : null
-                    }</ui.Tabs>
-                    
+                    }</ui.Tabs>            
                     <hr />
                 </Fragment>
             )

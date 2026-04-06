@@ -1,35 +1,39 @@
-type Base = {
+type NameUrl = {
     name: string
     url: string
 }
 
 type Ability = {
     is_hidden: boolean
-    ability: Base
+    ability: NameUrl
     slot: number
 }
 
 
 type PastStat = {
-    generation: Base
-    stats: Stat[]
+    generation: NameUrl
+    stats: StatItem[]
 }
 
-type Stat = {
+type StatItem = {
     base_stat: number
     effort: number
-    stat: Base
+    stat: NameUrl
 }
 
-type Type = Base & {
-    type: Base & {
+type Stat = IdName & {
+    names: any[]
+}
+
+type Type = NameUrl & {
+    type: NameUrl & {
     }
 }
 
 
 module pokemon {
     
-    type Item = Base & {
+    type Item = NameUrl & {
         
     }
 
@@ -37,19 +41,24 @@ module pokemon {
 
 }
 
+type Attribute = {
 
+}
 
-interface Pokemon extends Id, Base {
+interface Pokemon extends IdName {
     abilities: Ability[]
+    base_experience: number
     past_stats: PastStat[]
+    species: NameUrl
+    stats: StatItem[]
     types: Type[]
 }
 
-interface Generation extends Id, Base {
 
+interface Generation extends Id, NameUrl {
     abilities: Ability[]
     names: {
-        language: Base
+        language: NameUrl
         name: string
     }[]
 }
