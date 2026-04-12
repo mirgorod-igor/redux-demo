@@ -13,6 +13,7 @@ import ArrowLeft from '../svg/arrow-left.svg?react'
 
 const tabs: { key: keyof Pokemon, name: string}[] = [
     { key: 'abilities', name: 'Возможности' },
+    { key: 'sprites', name: 'Спрайты' },
     { key: 'past_stats', name: 'Прошлая статистика' },
     { key: 'stats', name: 'Статистика' },
     { key: 'types', name: 'Типы' },
@@ -49,7 +50,9 @@ function Content(p: { data: Pokemon }) {
                     ? <PastStatsTabContent items={p.data.past_stats} />
                     : activeTab == 'stats' 
                         ? <StatsTabContent items={p.data.stats} />
-                        : null
+                        : activeTab == 'sprites'
+                            ? <SpritesTabContent {...p.data.sprites} />
+                            : null
                 
         }</ui.Tabs>
     </div>
@@ -89,6 +92,21 @@ function AbilityTabContent(p: {
     </div>
 }
 
+
+function SpritesTabContent(p: Sprites) {
+    return <div className={sty.sprites}>
+        <small>back</small>
+        <img src={p.back_default} />
+        <img src={p.back_shiny} />
+        <img src={p.back_female!} />
+        <img src={p.back_shiny_female!} />
+        <small>front</small>
+        <img src={p.front_default} />
+        <img src={p.front_shiny} />
+        <img src={p.front_female!} />
+        <img src={p.front_shiny_female!} />
+    </div>
+}
 
 function StatsTabContent(p: { items: StatItem[] }) {
     console.log(p.items)

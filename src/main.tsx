@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router/dom"
 
 import * as page from './page'
 
-import './index.css'
+import './index.sass'
 
 
 
